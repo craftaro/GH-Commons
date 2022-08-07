@@ -1,0 +1,24 @@
+name: Discord send job results
+description: Sends a Discord message containing the job results
+
+inputs:
+  github_token:
+    required: true
+    description: The GitHub token to use for the GitHub API calls
+  webhook_url:
+    required: true
+    description: The Discord Webhook URL to send the message to
+
+runs:
+  using: composite
+  steps:
+    - uses: nobrayner/discord-webhook@v1
+      with:
+        github-token: ${{ inputs.github_token }}
+        discord-webhook: ${{ inputs.webhook_url }}
+
+        username: OctoAgent
+        avatar-url: https://github.githubassets.com/images/modules/logos_page/Octocat.png
+
+        description: '`${{ github.ref_type }}/${{ github.ref_name }}`'
+        include-details: true

@@ -1,0 +1,45 @@
+name: SonarCloud
+
+on:
+  push:
+    branches: [ master, development ]
+  pull_request:
+    types: [ opened, synchronize, reopened ]
+
+permissions: read-all
+
+env:
+  SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+  SONAR_PROJECT_KEY: songoda_example_project  # TODO: Change this to your project key, can be configured in pom.xml in non-
+
+jobs:
+  Analyze:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+        if: ${{ env.SONAR_TOKEN != null }}
+        with:
+          fetch-depth: 0
+
+      # TODO: Make sure the project doesn't need additional setup steps.
+      - name: Prepare Workspace
+        if: ${{ env.SONAR_TOKEN != null }}
+        uses: ./.github/actions/setup_workspace
+
+      - name: 'Cache: SonarCloud'
+        if: ${{ env.SONAR_TOKEN != null }}
+        uses: actions/cache@v3
+        with:
+          path: ~/.sonar/cache
+          key: ${{ runner.os }}-sonar
+
+      - name: Analyze project
+        if: ${{ env.SONAR_TOKEN != null }}
+        run: >
+          mvn -B \
+            verify \
+            org.sonarsource.scanner.maven:sonar-maven-plugin:sonar \
+            "-Dsonar.projectKey=$SONAR_PROJECT_KEY"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

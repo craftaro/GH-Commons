@@ -1,0 +1,55 @@
+name: Sign jar archives
+description: Uses jarsigner to sign jars
+inputs:
+  jar_file_selector:
+    required: true
+    description: The location of the jar to sign (e.g. 'target/*.jar' or 'target/application.jar')
+
+  keystore_gpg_encrypted:
+    required: true
+    description: GPG encrypted/armored keystore for jarsigner
+  keystore_gpg_password:
+    required: true
+    description: Password for the GPG encrypted/armored keystore
+
+  keystore_password:
+    required: true
+    description: The password of the keystore itself
+
+runs:
+  using: composite
+  steps:
+    - name: Decrypt keystore and write to file
+      shell: bash
+      run: echo -e "$JARSIGNER_KEYSTORE" | gpg --decrypt --batch --passphrase "$JARSIGNER_KEYSTORE_PASSWORD" > "$RUNNER_TEMP/jarsigner.keystore"
+      env:
+        JARSIGNER_KEYSTORE: ${{ inputs.keystore_gpg_encrypted }}
+        JARSIGNER_KEYSTORE_PASSWORD: ${{ inputs.keystore_gpg_password }}
+
+    - name: Sign jar
+      shell: bash
+      run: >
+        for FILE in $JAR_FILE_SELECTOR; do \
+          jarsigner \
+          -tsa "http://timestamp.digicert.com" \
+          -sigfile "CORE_SIG" \
+          -keystore "$JARSIGNER_KEYSTORE_PATH" \
+          -storepass "$JARSIGNER_KEYSTORE_PASSWORD" \
+          "$FILE" \
+          "github-actions@github.com/songoda"; \
+        done
+      env:
+        JAR_FILE_SELECTOR: ${{ inputs.jar_file_selector }}
+        JARSIGNER_KEYSTORE_PATH: ${{ runner.temp }}/jarsigner.keystore
+        JARSIGNER_KEYSTORE_PASSWORD: ${{ inputs.keystore_password }}
+
+    - name: Verify jar
+      shell: sh
+      run: jarsigner -verify -verbose -certs $JAR_FILE_SELECTOR
+      env:
+        JAR_FILE_SELECTOR: ${{ inputs.jar_file_selector }}
+
+    - name: Delete decrypted keystore
+      shell: sh
+      if: ${{ always() }}
+      run: rm -f "$RUNNER_TEMP/jarsigner.keystore"

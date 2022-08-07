@@ -1,0 +1,31 @@
+name: Setup Workspace
+description: Runs 'actions/setup-java' and optionally populates the .m2/settings.xml file for deployments.
+
+inputs:
+  maven_username:
+    required: false
+    description: The username to use for the Maven server
+  maven_password:
+    required: false
+    description: The password to use for the Maven server
+
+runs:
+  using: composite
+  steps:
+    # Setup Java
+    - uses: actions/setup-java@v2
+      with:
+        java-version: 17
+        distribution: adopt
+        cache: maven
+
+    - name: maven-settings-xml-action
+      uses: whelk-io/maven-settings-xml-action@v20
+      if: ${{ inputs.maven_username || inputs.maven_password }}
+      with:
+        servers: >
+          [{
+            "id": "songoda-deployment",
+            "username": "${{ inputs.maven_username }}",
+            "password": "${{ inputs.maven_password }}"
+          }]

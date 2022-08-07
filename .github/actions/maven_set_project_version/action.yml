@@ -1,0 +1,20 @@
+name: Deploy file(s) to maven repository
+description: Deploys the file(s) to the maven repository
+
+inputs:
+  append_snapshot:
+    required: false
+    default: 'true'
+    description: Whether this is a snapshot build
+  version:
+    required: false
+    default: ''
+    description: The version to set the artifact to (cannot be used with increment_version-option)
+  increment_version:
+    required: false
+    default: 'none'
+    description: 'One of the following: "major", "minor", "patch", "none" (defaults to "none" and cannot be used with version-option)'
+
+runs:
+  using: node16
+  main: index.js

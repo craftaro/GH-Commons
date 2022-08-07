@@ -1,0 +1,30 @@
+name: Deploy file(s) to maven repository
+description: Deploys the file(s) to the maven repository
+
+inputs:
+  repository_id:
+    required: false
+    default: songoda-deployment
+    description: The repository id to get the credentials from
+  repository_url:
+    required: true
+    description: The URL of the repository to deploy to
+  repository_url_snapshots:
+    required: false
+    description: Same as repository_url, but for snapshots (defaults to repository_url)
+  only_deploy_pom:
+    required: false
+    default: 'false'
+    description: Only deploy the pom file
+  maven_pom_path:
+    required: false
+    default: ./pom.xml
+    description: The path to the pom file to deploy
+  maven_out_dir:
+    required: false
+    default: ./target/
+    description: The directory containing the artifacts to deploy
+
+runs:
+  using: node16
+  main: index.js
