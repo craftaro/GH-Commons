@@ -18,6 +18,7 @@ ij_formatter_tags_enabled = true
 
 [{*.yaml,*.yml,*.json,*.graphqlconfig,*.har,*.jsb2,*.jsb3,*.webmanifest,.babelrc,.eslintrc,.prettierrc,.stylelintrc,bowerrc,jest.config}]
 indent_size = 2
+tab_width = 2
 
 
 [{*.markdown,*.md,*.html,*.htm,*.ng,*.sht,*.shtm,*.shtml,*.ts,*.ats,*.js,*.cjs,*.bash,*.sh,*.zsh}]
