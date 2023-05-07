@@ -17,7 +17,7 @@ We are now using GitHub Actions to automate our CI/CD pipelines (most projects a
 
 
 ## Workflow Templates
-There are templates available at [.github/workflow/](.github/workflow).
+There are templates available at [.github/workflows/](.github/workflows).
 Check all the `TODO` and `FIXME` comments in them to set it up properly.
 
 
@@ -28,7 +28,7 @@ to easily be used in other projects with little duplication.
 The syntax for using them is basically `- uses: songoda/GH-Commons/.github/actions/ACTION_NAME@master` –
 For more information, see [GitHub Actions](https://help.github.com/en/actions).
 
-Example usages can be found inside [.github/workflow/](.github/workflow).
+Example usages can be found inside [.github/workflow/](.github/workflows).
 
 - - -
 
