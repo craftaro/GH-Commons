@@ -16,10 +16,16 @@ inputs:
     required: true
     description: The password of the keystore itself
 
+  force_sign:
+    required: false
+    default: 'false'
+    description: Whether to force signing of the jar even if an empty keystore is provided
+
 runs:
   using: composite
   steps:
     - name: Decrypt keystore and write to file
+      if: ${{ inputs.keystore_gpg_encrypted != '' && inputs.force_sign != 'true' }}
       shell: bash
       run: echo -e "$JARSIGNER_KEYSTORE" | gpg --decrypt --batch --passphrase "$JARSIGNER_KEYSTORE_PASSWORD" > "$RUNNER_TEMP/jarsigner.keystore"
       env:
@@ -27,6 +33,7 @@ runs:
         JARSIGNER_KEYSTORE_PASSWORD: ${{ inputs.keystore_gpg_password }}
 
     - name: Sign jar
+      if: ${{ inputs.keystore_gpg_encrypted != '' && inputs.force_sign != 'true' }}
       shell: bash
       run: >
         for FILE in $JAR_FILE_SELECTOR; do \
@@ -44,6 +51,7 @@ runs:
         JARSIGNER_KEYSTORE_PASSWORD: ${{ inputs.keystore_password }}
 
     - name: Verify jar
+      if: ${{ inputs.keystore_gpg_encrypted != '' && inputs.force_sign != 'true' }}
       shell: sh
       run: jarsigner -verify -verbose -certs $JAR_FILE_SELECTOR
       env:
@@ -53,3 +61,8 @@ runs:
       shell: sh
       if: ${{ always() }}
       run: rm -f "$RUNNER_TEMP/jarsigner.keystore"
+
+    - name: Send warning when jar not signed
+      if: ${{ inputs.keystore_gpg_encrypted != '' && inputs.force_sign != 'true' }}
+      shell: sh
+      run: "echo '::warning title=Jar not signed::The jar was not signed because no keystore was provided – This is expected for forks and pull requests'"
