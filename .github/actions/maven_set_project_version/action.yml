@@ -13,7 +13,7 @@ inputs:
   increment_version:
     required: false
     default: 'none'
-    description: 'One of the following: "major", "minor", "patch", "none" (defaults to "none" and cannot be used with version-option)'
+    description: 'One of the following: "major", "minor", "patch", "none" (defaults to "none" and cannot be used with "version" option)'
 
 runs:
   using: node16
