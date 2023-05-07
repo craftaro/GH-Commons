@@ -65,6 +65,7 @@ jobs:
           path: ${{ env.DEPLOYMENT_ARTIFACT_DIR }}/${{ env.DEPLOYMENT_ARTIFACT_SELECTOR }}
 
       - name: Deploy to Maven repo
+        if: ${{ github.event_name == 'push' }}
         uses: songoda/GH-Commons/.github/actions/maven_deploy@master
         with:
           repository_url: ${{ secrets.MAVEN_REPO_URL_RELEASES }}
@@ -74,6 +75,7 @@ jobs:
 
 # TODO: This step is needed in multi-module maven setups:
   #      - name: Deploy parent pom.xml to Maven repo
+  #        if: ${{ github.event_name == 'push' }}
   #        uses: songoda/GH-Commons/.github/actions/maven_deploy@master
   #        with:
   #          repository_url: ${{ secrets.MAVEN_REPO_URL_RELEASES }}
