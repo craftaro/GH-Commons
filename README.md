@@ -10,6 +10,11 @@ please copy the files from this repository and configure/check all of them.
 Please use your IDE to search across all files for `TODO` and `FIXME`.
 Use these to configure parts of the project or delete the file if it is not needed.
 
+Always delete the following files:
+* `.github/dependabot.yml`
+* `.github/actions/`
+* ...
+
 ---
 
 # GitHub Actions
@@ -30,11 +35,19 @@ For more information, see [GitHub Actions](https://help.github.com/en/actions).
 
 Example usages can be found inside [.github/workflow/](.github/workflows).
 
+
+## Files suffixed with `.dist.${EXTENSION}`
+Some files in this repo exist twice, once with the `.dist` suffix and once without it.
+This happens when this repository needs that file itself but projects using this repository
+need to configure it differently.
+
+When setting up a new project, you should copy the file without the `.dist` suffix, rename it and configure it.
+
 - - -
 
 ## Miscellaneous
 
-## `.github/dependabot.yml`
+## `.github/dependabot(.dist).yml`
 We use dependabot right now to remind us about dependency updates.
 
 You might need to add/remove sections to the configuration if you are not using Maven.

@@ -1,14 +1,28 @@
-# Please see the documentation for all configuration options:
-# https://docs.github.com/en/code-security/dependabot/dependabot-version-updates/configuration-options-for-the-dependabot.yml-file
-
 version: 2
 updates:
-  - package-ecosystem: "maven"
-    directory: "/"
+  - package-ecosystem: github-actions
+    directory: /
+    target-branch: development
     schedule:
-      interval: "monthly"
+      interval: weekly
 
-  - package-ecosystem: "github-actions"
-    directory: "/"
+  - package-ecosystem: github-actions
+    directory: /.github/actions/discord_send_job_results
     schedule:
-      interval: "monthly"
+      interval: weekly
+  - package-ecosystem: github-actions
+    directory: /.github/actions/maven_deploy
+    schedule:
+      interval: weekly
+  - package-ecosystem: github-actions
+    directory: /.github/actions/maven_set_project_version
+    schedule:
+      interval: weekly
+  - package-ecosystem: github-actions
+    directory: /.github/actions/setup_workspace
+    schedule:
+      interval: weekly
+  - package-ecosystem: github-actions
+    directory: /.github/actions/sign_jars
+    schedule:
+      interval: weekly
