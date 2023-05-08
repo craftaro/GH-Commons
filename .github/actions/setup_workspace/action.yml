@@ -4,9 +4,11 @@ description: Runs 'actions/setup-java' and optionally populates the .m2/settings
 inputs:
   maven_username:
     required: false
+    default: ''
     description: The username to use for the Maven server
   maven_password:
     required: false
+    default: ''
     description: The password to use for the Maven server
 
 runs:
@@ -19,13 +21,57 @@ runs:
         distribution: adopt
         cache: maven
 
-    - name: maven-settings-xml-action
+    - name: Configure maven's settings.xml (mirrors, deployment credentials)
       uses: whelk-io/maven-settings-xml-action@v21
-      if: ${{ inputs.maven_username || inputs.maven_password }}
       with:
         servers: >
           [{
             "id": "songoda-deployment",
-            "username": "${{ inputs.maven_username }}",
-            "password": "${{ inputs.maven_password }}"
+            "username": "${{ inputs.maven_username != '' && inputs.maven_username || 'anonymous' }}",
+            "password": "${{ inputs.maven_password != '' && inputs.maven_password || 'anonymous' }}"
           }]
+        mirrors: >
+          [
+            {
+              "id": "songoda-mirror",
+              "name": "Songoda-Repository [Mirror]",
+              "url": "https://songoda.sprax.dev/repo/repository/minecraft-plugins/",
+              "mirrorOf": "songoda,songoda-minecraft-plugins,songoda-public"
+            },
+            {
+              "id": "SpigotMC-mirror",
+              "name": "SpigotMC-Repository [Mirror]",
+              "url": "https://songoda.sprax.dev/repo/repository/SpigotMC-Snapshots/",
+              "mirrorOf": "SpigotMC,SpigotMC-repo,spigotmc,spigotmc-repo"
+            },
+            {
+              "id": "CodeMC-mirror",
+              "name": "CodeMC-Repository [Mirror]",
+              "url": "https://songoda.sprax.dev/repo/repository/CodeMC-public/",
+              "mirrorOf": "CodeMC,codemc"
+            },
+            {
+              "id": "bg-software-mirror",
+              "name": "bg-software-Repository [Mirror]",
+              "url": "https://songoda.sprax.dev/repo/repository/bg-software/",
+              "mirrorOf": "bg-software,bg-repo"
+            },
+            {
+              "id": "ViaVersion-mirror",
+              "name": "ViaVersion-Repository [Mirror]",
+              "url": "https://songoda.sprax.dev/repo/repository/ViaVersion/",
+              "mirrorOf": "ViaVersion,viaversion"
+            },
+            {
+              "id": "PaperMC-mirror",
+              "name": "PaperMC-Repository [Mirror]",
+              "url": "https://songoda.sprax.dev/repo/repository/PaperMC/",
+              "mirrorOf": "PaperMC,papermc"
+            },
+            {
+              "id": "EngineHub-mirror",
+              "name": "EngineHub-Repository [Mirror]",
+              "url": "https://songoda.sprax.dev/repo/repository/enginehub-repo/",
+              "mirrorOf": "enginehub-repo,enginehub,sk89q-repo,sk89q"
+            }
+          ]
