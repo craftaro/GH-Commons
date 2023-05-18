@@ -1,4 +1,4 @@
-# songoda/GitHub-Commons
+# Craftaro's GitHub-Commons
 This repository is a collection of files commonly used in out projects – It is not for snippets
 that only one or two projects might use!
 
@@ -30,7 +30,7 @@ Check all the `TODO` and `FIXME` comments in them to set it up properly.
 A lot of common functionality has been grouped into own little actions at [.github/actions/](.github/actions)
 to easily be used in other projects with little duplication.
 
-The syntax for using them is basically `- uses: songoda/GH-Commons/.github/actions/ACTION_NAME@master` –
+The syntax for using them is basically `- uses: craftaro/GH-Commons/.github/actions/ACTION_NAME@master` –
 For more information, see [GitHub Actions](https://help.github.com/en/actions).
 
 Example usages can be found inside [.github/workflow/](.github/workflows).

@@ -22,7 +22,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Prepare Workspace
-        uses: songoda/GH-Commons/.github/actions/prepare_workspace@master
+        uses: craftaro/GH-Commons/.github/actions/prepare_workspace@master
 
       - name: Run tests
         run: mvn -B clean test
@@ -35,13 +35,13 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Prepare Workspace
-        uses: songoda/GH-Commons/.github/actions/prepare_workspace@master
+        uses: craftaro/GH-Commons/.github/actions/prepare_workspace@master
         with:
           maven_username: ${{ secrets.MAVEN_REPO_USERNAME }}
           maven_password: ${{ secrets.MAVEN_REPO_PASSWORD }}
 
       - name: Set project version
-        uses: songoda/GH-Commons/.github/actions/maven_set_project_version@master
+        uses: craftaro/GH-Commons/.github/actions/maven_set_project_version@master
         with:
           append_snapshot: ${{ github.ref_type == 'tag' && 'false' || 'true' }}
           version: ${{ github.ref_type == 'tag' && github.ref_name || '' }}
@@ -51,7 +51,7 @@ jobs:
         run: mvn -B -Duser.name="GitHub Actions on $GITHUB_REPOSITORY (id=$GITHUB_RUN_ID)" -DskipTests clean package
 
       - name: Sign jar archives
-        uses: songoda/GH-Commons/.github/actions/sign_jars@master
+        uses: craftaro/GH-Commons/.github/actions/sign_jars@master
         with:
           jar_file_selector: ${{ env.DEPLOYMENT_ARTIFACT_DIR }}/${{ env.DEPLOYMENT_ARTIFACT_SELECTOR }}
           keystore_gpg_encrypted: ${{ secrets.JARSIGNER_KEYSTORE_ENCRYPTED }}
@@ -66,7 +66,7 @@ jobs:
 
       - name: Deploy to Maven repo
         if: ${{ github.event_name == 'push' }}
-        uses: songoda/GH-Commons/.github/actions/maven_deploy@master
+        uses: craftaro/GH-Commons/.github/actions/maven_deploy@master
         with:
           repository_url: ${{ secrets.MAVEN_REPO_URL_RELEASES }}
           repository_url_snapshots: ${{ secrets.MAVEN_REPO_URL_SNAPSHOTS }}
@@ -76,7 +76,7 @@ jobs:
 # TODO: This step is needed in multi-module maven setups:
   #      - name: Deploy parent pom.xml to Maven repo
   #        if: ${{ github.event_name == 'push' }}
-  #        uses: songoda/GH-Commons/.github/actions/maven_deploy@master
+  #        uses: craftaro/GH-Commons/.github/actions/maven_deploy@master
   #        with:
   #          repository_url: ${{ secrets.MAVEN_REPO_URL_RELEASES }}
   #          repository_url_snapshots: ${{ secrets.MAVEN_REPO_URL_SNAPSHOTS }}
@@ -93,7 +93,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Notify Webhook
-        uses: songoda/GH-Commons/.github/actions/discord_send_job_results@master
+        uses: craftaro/GH-Commons/.github/actions/discord_send_job_results@master
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           webhook_url: ${{ secrets.DISCORD_WEBHOOK }}
