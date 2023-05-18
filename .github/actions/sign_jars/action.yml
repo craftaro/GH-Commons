@@ -63,6 +63,6 @@ runs:
       run: rm -f "$RUNNER_TEMP/jarsigner.keystore"
 
     - name: Send warning when jar not signed
-      if: ${{ inputs.keystore_gpg_encrypted != '' && inputs.force_sign != 'true' }}
+      if: ${{ !(inputs.keystore_gpg_encrypted != '' && inputs.force_sign != 'true') }}
       shell: sh
       run: "echo '::warning title=Jar not signed::The jar was not signed because no keystore was provided – This is expected for forks and pull requests'"
