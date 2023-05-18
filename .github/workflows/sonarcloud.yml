@@ -23,7 +23,7 @@ jobs:
 
       # TODO: Make sure the project doesn't need additional setup steps or change the action to your own.
       - name: Prepare Workspace
-        uses: ./.github/actions/setup_workspace
+        uses: craftaro/GH-Commons/.github/actions/setup_workspace@master
 
       - name: 'Cache: SonarCloud'
         uses: actions/cache@v3

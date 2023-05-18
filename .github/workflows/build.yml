@@ -22,7 +22,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Prepare Workspace
-        uses: craftaro/GH-Commons/.github/actions/prepare_workspace@master
+        uses: craftaro/GH-Commons/.github/actions/setup_workspace@master
 
       - name: Run tests
         run: mvn -B clean test
@@ -34,8 +34,9 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
+      # TODO: Make sure the project doesn't need additional setup steps or change the action to your own.
       - name: Prepare Workspace
-        uses: craftaro/GH-Commons/.github/actions/prepare_workspace@master
+        uses: craftaro/GH-Commons/.github/actions/setup_workspace@master
         with:
           maven_username: ${{ secrets.MAVEN_REPO_USERNAME }}
           maven_password: ${{ secrets.MAVEN_REPO_PASSWORD }}
@@ -96,4 +97,4 @@ jobs:
         uses: craftaro/GH-Commons/.github/actions/discord_send_job_results@master
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          webhook_url: ${{ secrets.DISCORD_WEBHOOK }}
+          webhook_url: ${{ secrets.DISCORD_BUILD_STATUS_WEBHOOK }}
