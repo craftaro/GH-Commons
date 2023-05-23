@@ -26,7 +26,7 @@ runs:
       with:
         servers: >
           [{
-            "id": "songoda-deployment",
+            "id": "craftaro-minecraft-plugins-deployment",
             "username": "${{ inputs.maven_username != '' && inputs.maven_username || 'anonymous' }}",
             "password": "${{ inputs.maven_password != '' && inputs.maven_password || 'anonymous' }}"
           }]

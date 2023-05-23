@@ -38,8 +38,8 @@ jobs:
       - name: Prepare Workspace
         uses: craftaro/GH-Commons/.github/actions/setup_workspace@master
         with:
-          maven_username: ${{ secrets.MAVEN_REPO_USERNAME }}
-          maven_password: ${{ secrets.MAVEN_REPO_PASSWORD }}
+          maven_username: ${{ secrets.PLUGINS_MAVEN_REPO_USERNAME }}
+          maven_password: ${{ secrets.PLUGINS_MAVEN_REPO_PASSWORD }}
 
       - name: Set project version
         uses: craftaro/GH-Commons/.github/actions/maven_set_project_version@master
@@ -55,11 +55,11 @@ jobs:
         uses: craftaro/GH-Commons/.github/actions/sign_jars@master
         with:
           jar_file_selector: ${{ env.DEPLOYMENT_ARTIFACT_DIR }}/${{ env.DEPLOYMENT_ARTIFACT_SELECTOR }}
-          keystore_gpg_encrypted: ${{ secrets.JARSIGNER_KEYSTORE_ENCRYPTED }}
-          keystore_gpg_password: ${{ secrets.JARSIGNER_KEYSTORE_ENCRYPTED_PASSWORD }}
-          keystore_password: ${{ secrets.JARSIGNER_KEYSTORE_PASSWORD }}
+          keystore_gpg_encrypted: ${{ secrets.PLUGINS_JARSIGNER_KEYSTORE_GPG }}
+          keystore_gpg_password: ${{ secrets.PLUGINS_JARSIGNER_KEYSTORE_GPG_PASSWORD }}
+          keystore_password: ${{ secrets.PLUGINS_JARSIGNER_KEYSTORE_PASSWORD }}
 
-      - name: 'Upload Build Artifacts'
+      - name: Upload Build Artifacts
         uses: actions/upload-artifact@v3
         with:
           name: ${{ github.event.repository.name }}
@@ -69,8 +69,8 @@ jobs:
         if: ${{ github.event_name == 'push' }}
         uses: craftaro/GH-Commons/.github/actions/maven_deploy@master
         with:
-          repository_url: ${{ secrets.MAVEN_REPO_URL_RELEASES }}
-          repository_url_snapshots: ${{ secrets.MAVEN_REPO_URL_SNAPSHOTS }}
+          repository_url: ${{ vars.PLUGINS_MAVEN_REPO_URL_RELEASE }}
+          repository_url_snapshots: ${{ vars.PLUGINS_MAVEN_REPO_URL_SNAPSHOT }}
           maven_pom_path: ${{ env.DEPLOYMENT_POM_PATH }}
           maven_out_dir: ${{ env.DEPLOYMENT_ARTIFACT_DIR }}
 
@@ -79,8 +79,8 @@ jobs:
   #        if: ${{ github.event_name == 'push' }}
   #        uses: craftaro/GH-Commons/.github/actions/maven_deploy@master
   #        with:
-  #          repository_url: ${{ secrets.MAVEN_REPO_URL_RELEASES }}
-  #          repository_url_snapshots: ${{ secrets.MAVEN_REPO_URL_SNAPSHOTS }}
+  #          repository_url: ${{ vars.PLUGINS_MAVEN_REPO_URL_RELEASE }}
+  #          repository_url_snapshots: ${{ vars.PLUGINS_MAVEN_REPO_URL_SNAPSHOT }}
   #          only_deploy_pom: true
   #          maven_out_dir: ${{ env.DEPLOYMENT_ARTIFACT_DIR }}
 

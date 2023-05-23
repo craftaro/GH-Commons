@@ -43,7 +43,7 @@ runs:
           -keystore "$JARSIGNER_KEYSTORE_PATH" \
           -storepass "$JARSIGNER_KEYSTORE_PASSWORD" \
           "$FILE" \
-          "github-actions@github.com/songoda"; \
+          "github-actions@github.com/craftaro"; \
         done
       env:
         JAR_FILE_SELECTOR: ${{ inputs.jar_file_selector }}

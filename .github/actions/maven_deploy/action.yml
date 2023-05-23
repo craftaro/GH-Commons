@@ -4,7 +4,7 @@ description: Deploys the file(s) to the maven repository
 inputs:
   repository_id:
     required: false
-    default: songoda-deployment
+    default: craftaro-minecraft-plugins-deployment
     description: The repository id to get the credentials from
   repository_url:
     required: true
