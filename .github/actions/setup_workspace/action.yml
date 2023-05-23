@@ -33,45 +33,57 @@ runs:
         mirrors: >
           [
             {
-              "id": "songoda-mirror",
-              "name": "Songoda-Repository [Mirror]",
-              "url": "https://songoda.sprax.dev/repo/repository/minecraft-plugins/",
-              "mirrorOf": "songoda,songoda-minecraft-plugins,songoda-public"
+              "id": "songoda-legacy-public-mirror",
+              "name": "Songoda-Legacy-Public-Repository [Mirror]",
+              "url": "https://repo.craftaro.com/repository/public/",
+              "mirrorOf": "songoda,songoda-public"
             },
             {
               "id": "SpigotMC-mirror",
               "name": "SpigotMC-Repository [Mirror]",
-              "url": "https://songoda.sprax.dev/repo/repository/SpigotMC-Snapshots/",
+              "url": "https://repo.craftaro.com/repository/SpigotMC-Snapshots/",
               "mirrorOf": "SpigotMC,SpigotMC-repo,spigotmc,spigotmc-repo"
             },
             {
               "id": "CodeMC-mirror",
               "name": "CodeMC-Repository [Mirror]",
-              "url": "https://songoda.sprax.dev/repo/repository/CodeMC-public/",
+              "url": "https://repo.craftaro.com/repository/CodeMC-public/",
               "mirrorOf": "CodeMC,codemc"
             },
             {
               "id": "bg-software-mirror",
               "name": "bg-software-Repository [Mirror]",
-              "url": "https://songoda.sprax.dev/repo/repository/bg-software/",
+              "url": "https://repo.craftaro.com/repository/bg-software/",
               "mirrorOf": "bg-software,bg-repo"
             },
             {
               "id": "ViaVersion-mirror",
               "name": "ViaVersion-Repository [Mirror]",
-              "url": "https://songoda.sprax.dev/repo/repository/ViaVersion/",
+              "url": "https://repo.craftaro.com/repository/ViaVersion/",
               "mirrorOf": "ViaVersion,viaversion"
             },
             {
               "id": "PaperMC-mirror",
               "name": "PaperMC-Repository [Mirror]",
-              "url": "https://songoda.sprax.dev/repo/repository/PaperMC/",
+              "url": "https://repo.craftaro.com/repository/PaperMC/",
               "mirrorOf": "PaperMC,papermc"
             },
             {
               "id": "EngineHub-mirror",
               "name": "EngineHub-Repository [Mirror]",
-              "url": "https://songoda.sprax.dev/repo/repository/enginehub-repo/",
+              "url": "https://repo.craftaro.com/repository/enginehub-repo/",
               "mirrorOf": "enginehub-repo,enginehub,sk89q-repo,sk89q"
+            },
+            {
+              "id": "dynmap-repo-mirror",
+              "name": "Dynmap-Repository [Mirror]",
+              "url": "https://repo.craftaro.com/repository/Dynmap/",
+              "mirrorOf": "dynmap-repo"
+            },
+            {
+              "id": "Modrinth-mirror",
+              "name": "Modrinth-Repository [Mirror]",
+              "url": "https://repo.craftaro.com/repository/Modrinth/",
+              "mirrorOf": "Modrinth,modrinth-repo"
             }
           ]
