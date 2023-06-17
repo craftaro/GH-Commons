@@ -14,6 +14,10 @@ inputs:
     required: false
     default: 'none'
     description: 'One of the following: "major", "minor", "patch", "none" (defaults to "none" and cannot be used with "version" option)'
+  increment_version_only_if_not_snapshot_version:
+    required: false
+    default: 'false'
+    description: 'Whether to increment the version only if the current version is not a snapshot version (defaults to "false")'
 
 runs:
   using: node16

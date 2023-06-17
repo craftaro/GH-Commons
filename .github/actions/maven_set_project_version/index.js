@@ -11,7 +11,11 @@ if (stepInputs.version != null) {
 }
 
 if (stepInputs.incrementVersion != null && stepInputs.incrementVersion !== 'none') {
-  newVersion = incrementVersion(newVersion, stepInputs.incrementVersion);
+  if (stepInputs.incrementVersionOnlyIfNotSnapshotVersion === 'true' && (stepInputs.appendSnapshot || newVersion.endsWith('-SNAPSHOT'))) {
+    console.log(`Skipping version increment because the current version "${newVersion}" is a snapshot version`);
+  } else {
+    newVersion = incrementVersion(newVersion, stepInputs.incrementVersion);
+  }
 }
 
 if (stepInputs.appendSnapshot) {
@@ -135,7 +139,8 @@ function getStepInputs() {
   const inputs = {
     appendSnapshot: (getInput('append_snapshot') || 'true') === 'true',
     version: getInput('version') || undefined,
-    incrementVersion: getInput('increment_version') || 'none'
+    incrementVersion: getInput('increment_version') || 'none',
+    incrementVersionOnlyIfNotSnapshotVersion: getInput('increment_version_only_if_not_snapshot_version') || 'false'
   };
 
   if (!possibleIncrementVersionValues.includes(inputs.incrementVersion)) {
