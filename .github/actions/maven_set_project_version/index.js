@@ -37,9 +37,11 @@ function appendSnapshotSuffix(version) {
   }
 
   if (/.*-SNAPSHOT$/.test(version)) {
-    const runNumber = process.env['GITHUB_RUN_NUMBER'];
-    if (/^\d+$/.test(runNumber)) {
-      return version.replace(/-SNAPSHOT$/, `-b${runNumber}-SNAPSHOT`);
+    if (process.env['GITHUB_REF'] !== 'refs/heads/development') {
+      const runNumber = process.env['GITHUB_RUN_NUMBER'];
+      if (/^\d+$/.test(runNumber)) {
+        return version.replace(/-SNAPSHOT$/, `-b${runNumber}-SNAPSHOT`);
+      }
     }
 
     return version;
