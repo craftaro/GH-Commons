@@ -37,7 +37,7 @@ function getPotentialArtifactFiles() {
 
 /**
  * @param { string[] } files
- * @return { {artifact: string, sources?: string} }
+ * @return { {artifact: string, sources?: string, javadoc?: string} }
  */
 function determineArtifacts(files) {
   const result = {};
@@ -50,8 +50,19 @@ function determineArtifacts(files) {
     result.sources = potentialSourcesFiles[0];
   }
 
+  const potentialJavadocFiles = files.filter(file => file.endsWith('-javadoc.jar'));
+  if (potentialJavadocFiles.length > 1) {
+    throw new Error(`Found more than one javadoc jar file: ${potentialJavadocFiles.join(', ')}`);
+  }
+  if (potentialJavadocFiles.length === 1) {
+    result.javadoc = potentialJavadocFiles[0];
+  }
+
   if (result.sources) {
     files = files.filter(file => file !== result.sources);
+  }
+  if (result.javadoc) {
+    files = files.filter(file => file !== result.javadoc);
   }
 
   if (files.length > 1) {
@@ -90,6 +101,10 @@ function buildDeployProcessArguments() {
 
   if (artifactsToDeploy.sources) {
     deployProcessArguments.push(`-Dsources=${artifactsToDeploy.sources}`);
+  }
+
+  if (artifactsToDeploy.javadoc) {
+    deployProcessArguments.push(`-Djavadoc=${artifactsToDeploy.javadoc}`);
   }
 
   return deployProcessArguments;
