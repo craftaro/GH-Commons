@@ -42,7 +42,7 @@ runs:
               "id": "SpigotMC-mirror",
               "name": "SpigotMC-Repository [Mirror]",
               "url": "https://repo.craftaro.com/repository/SpigotMC-Snapshots/",
-              "mirrorOf": "SpigotMC,SpigotMC-repo,spigotmc,spigotmc-repo"
+              "mirrorOf": "SpigotMC,SpigotMC-repo,spigotmc,spigotmc-repo,spigot-repo"
             },
             {
               "id": "CodeMC-mirror",
