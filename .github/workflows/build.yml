@@ -55,20 +55,6 @@ jobs:
       - name: Build with Maven
         run: mvn -B -Duser.name="GitHub Actions on $GITHUB_REPOSITORY (id=$GITHUB_RUN_ID)" -DskipTests clean package
 
-      - name: Sign jar archives
-        uses: craftaro/GH-Commons/.github/actions/sign_jars@master
-        with:
-          jar_file_selector: ${{ env.DEPLOYMENT_ARTIFACT_DIR }}/${{ env.DEPLOYMENT_ARTIFACT_SELECTOR }}
-          keystore_gpg_encrypted: ${{ secrets.PLUGINS_JARSIGNER_KEYSTORE_GPG }}
-          keystore_gpg_password: ${{ secrets.PLUGINS_JARSIGNER_KEYSTORE_GPG_PASSWORD }}
-          keystore_password: ${{ secrets.PLUGINS_JARSIGNER_KEYSTORE_PASSWORD }}
-
-      - name: Upload Build Artifacts
-        uses: actions/upload-artifact@v3
-        with:
-          name: ${{ github.event.repository.name }}
-          path: ${{ env.DEPLOYMENT_ARTIFACT_DIR }}/${{ env.DEPLOYMENT_ARTIFACT_SELECTOR }}
-
 # TODO: If you don't have a dedicated plugin module, remove the API suffix
       - name: Upload Build Artifacts [API]
         uses: actions/upload-artifact@v3
@@ -83,6 +69,14 @@ jobs:
         with:
           name: ${{ github.event.repository.name }}
           path: ${{ env.PLUGIN_ARTIFACT_DIR }}/${{ env.PLUGIN_ARTIFACT_SELECTOR }}
+
+      - name: Sign jar archives
+        uses: craftaro/GH-Commons/.github/actions/sign_jars@master
+        with:
+          jar_file_selector: ${{ env.DEPLOYMENT_ARTIFACT_DIR }}/${{ env.DEPLOYMENT_ARTIFACT_SELECTOR }}
+          keystore_gpg_encrypted: ${{ secrets.PLUGINS_JARSIGNER_KEYSTORE_GPG }}
+          keystore_gpg_password: ${{ secrets.PLUGINS_JARSIGNER_KEYSTORE_GPG_PASSWORD }}
+          keystore_password: ${{ secrets.PLUGINS_JARSIGNER_KEYSTORE_PASSWORD }}
 
       - name: Deploy to Maven repo
         if: ${{ github.event_name == 'push' }}
