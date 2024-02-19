@@ -22,7 +22,7 @@ runs:
         cache: maven
 
     - name: Configure maven's settings.xml (mirrors, deployment credentials)
-      uses: whelk-io/maven-settings-xml-action@v21
+      uses: whelk-io/maven-settings-xml-action@v22
       with:
         servers: >
           [{
