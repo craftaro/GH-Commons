@@ -148,7 +148,7 @@ function getStepInputs() {
   }
 
   if (inputs.version != null && inputs.incrementVersion !== 'none') {
-    throw new Error('Cannot set version and increment_version at the same time');
+    throw new Error(`Cannot set version and increment_version at the same time: {version=${JSON.stringify(inputs.version)}, increment_version=${JSON.stringify(inputs.incrementVersion)}}`);
   }
 
   if (inputs.version != null) {
