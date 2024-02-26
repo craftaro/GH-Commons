@@ -18,7 +18,7 @@ runs:
         discord-webhook: ${{ inputs.webhook_url }}
 
         username: OctoAgent
-        avatar-url: https://github.githubassets.com/images/modules/logos_page/Octocat.png
+        avatar-url: https://github.githubassets.com/assets/GitHub-Mark-ea2971cee799.png
 
         description: '`${{ github.ref_type }}/${{ github.ref_name }}`'
         include-details: true
