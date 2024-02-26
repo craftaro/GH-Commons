@@ -26,5 +26,5 @@ inputs:
     description: The directory containing the artifacts to deploy
 
 runs:
-  using: node16
+  using: node20
   main: index.js
