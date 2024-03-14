@@ -7,7 +7,7 @@ function getInput(key) {
   return process.env[`INPUT_${key.replace(/ /g, '_').toUpperCase()}`] || '';
 }
 
-const repositoryId = getInput('repository_id') || 'craftaro-minecraft-plugins-deployment';
+const repositoryId = getInput('repository_id') || 'songoda-minecraft-plugins-deployment';
 const repositoryUrl = getInput('repository_url');
 const repositoryUrlSnapshots = getInput('repository_url_snapshots') || repositoryUrl;
 
