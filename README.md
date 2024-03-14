@@ -1,4 +1,4 @@
-# Craftaro's GitHub-Commons
+# Songoda's GitHub-Commons
 This repository is a collection of files commonly used in out projects – It is not for snippets
 that only one or two projects might use!
 
