@@ -39,12 +39,6 @@ runs:
               "mirrorOf": "songoda,songoda-public"
             },
             {
-              "id": "SpigotMC-mirror",
-              "name": "SpigotMC-Repository [Mirror]",
-              "url": "https://repo.songoda.com/repository/SpigotMC-Snapshots/",
-              "mirrorOf": "SpigotMC,SpigotMC-repo,spigotmc,spigotmc-repo,spigot-repo"
-            },
-            {
               "id": "CodeMC-mirror",
               "name": "CodeMC-Repository [Mirror]",
               "url": "https://repo.songoda.com/repository/CodeMC-public/",
